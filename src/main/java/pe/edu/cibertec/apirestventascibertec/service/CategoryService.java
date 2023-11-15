@@ -16,4 +16,12 @@ public class CategoryService {
     public List<Category> listarCategorias(){
         return categoryRepository.findAll();
     }
+
+    public Category guardar(Category category){
+        return categoryRepository.save(category);
+    }
+
+    public Category obtenerCategoriaPorId(Integer id){
+        return categoryRepository.findById(id).get();
+    }
 }
