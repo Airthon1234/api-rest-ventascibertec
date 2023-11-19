@@ -6,6 +6,7 @@ import pe.edu.cibertec.apirestventascibertec.model.bd.Category;
 import pe.edu.cibertec.apirestventascibertec.repository.CategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -14,14 +15,36 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     public List<Category> listarCategorias(){
+
         return categoryRepository.findAll();
     }
 
     public Category guardar(Category category){
+
         return categoryRepository.save(category);
     }
 
-    public Category obtenerCategoriaPorId(Integer id){
-        return categoryRepository.findById(id).get();
+    public Optional<Category> obtenerCategoriaPorId(Integer id){
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isEmpty()){
+            return Optional.empty();
+        }else {
+            return category;
+        }
     }
+
+    public Optional<Category> obtenerCategoriaPorNombre(String categoryname){
+
+        Optional<Category> category = categoryRepository.findByCategoryname(categoryname);
+        if (category.isEmpty())
+            return Optional.empty();
+        else
+            return category;
+    }
+
+    public List<Category> obtenerCategoriasPorFiltro(String filtro){
+        return categoryRepository.filtrarCategoriasPorNombreSQL(filtro);
+    }
+
+
 }
