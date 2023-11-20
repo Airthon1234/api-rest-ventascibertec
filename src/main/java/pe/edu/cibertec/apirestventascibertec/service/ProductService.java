@@ -21,6 +21,7 @@ public class ProductService {
     }
 
     public Product guardarProducto(ProductRequest product){
+
             Product objProduct = new Product();
             if(product.getProductid() > 0){
                 objProduct.setProductid(product.getProductid());
@@ -38,7 +39,7 @@ public class ProductService {
             supplier.setSupplierid(product.getSupplierid());
             objProduct.setCategory(category);
             objProduct.setSupplier(supplier);
+
         return productRepository.save(objProduct);
     }
-
 }
