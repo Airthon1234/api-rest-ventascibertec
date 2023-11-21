@@ -20,4 +20,24 @@ public class ControllerExceptionHandler {
                 request.getDescription(false));
         return message;
     }
+
+    @ExceptionHandler(MaxUploadSizeExceedException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage MaxUploadSizeExceedException (MaxUploadSizeExceedException ex, WebRequest request){
+        ErrorMessage message=new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                new Date(),
+                "Verificar el tamaño del archivo",
+                request.getDescription(false));
+        return message;
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage Exception (Exception ex, WebRequest request){
+        ErrorMessage message=new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return message;
+    }
 }
